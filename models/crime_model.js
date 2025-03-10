@@ -3,15 +3,17 @@ const mongoose = require('mongoose');
 
 const CrimeSchema = new mongoose.Schema (
      {
+        id: {
+            type: int,
+            required: true
+        },
+
         categories: {
             type: String,
             required: true
         },
+
         types:{
-            type: String,
-            required: true
-        },
-        resources:{
             type: String,
             required: true
         },
@@ -20,12 +22,16 @@ const CrimeSchema = new mongoose.Schema (
             type: String,
             required: true
         },
+
+        status: {
+            type: String,
+            required: true
+        },
         
         reportedAt: {
             type: Date,
             default: Date.now
         }
-        
     },
 
     {

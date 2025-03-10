@@ -9,6 +9,9 @@ const { connectDB } = require('./config/db');
 connectDB();
 
 const PORT = process.env.PORT || 8080;
+app.get('/', (req,res) => {
+  res.send("Tangina mo!");
+});
 
 app.listen(PORT, () => {
   console.log({
