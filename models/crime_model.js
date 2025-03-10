@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const CrimeSchema = new mongoose.Schema (
      {
         id: {
-            type: int,
+            type: Number,
             required: true
         },
 

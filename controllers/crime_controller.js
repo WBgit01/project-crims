@@ -14,7 +14,11 @@ const getCrimes = async (req, res) => {
 const getCrime = async (req, res) => {
     try {
         const {id} = req.params;
-        const crime = await Crime.findById({id});
+        const crime = await Crime.findById(id);
+        if (!crime) {
+            res.status(404).json({message: "Crime not found"});
+        }
+
         res. status(200).json(crime)
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -35,14 +39,20 @@ const reportCrime = async (req, res) => {
 const updateCrime = async (req, res) => {
     try {
         const {id} = req.params;
-        const crime = await Crime.findByIdAndUpdate(id, req.body);
+        const crime = await Crime.findByIdAndUpdate(id, req.body, { new: true });
         if (!crime) {
             res.status(404).json({message: "Crime not found"});
         }
-
-        const updatedCrime = await Crime.findById(id);
+        
         res.status(200).json(crime);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 };
+
+module.exports = {
+    getCrimes,
+    getCrime,
+    reportCrime,
+    updateCrime
+}
