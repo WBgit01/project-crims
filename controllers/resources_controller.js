@@ -1,4 +1,4 @@
-const Resource = require('../resources_model.js');
+const Resource = require('../models/resources_model.js');
 
 // Display all Resources
 const getResource = async (req, res) => {
@@ -22,7 +22,7 @@ const getResources = async (req, res) => {
 };
 
 // Report Resource
-const reportResource = async (req, res) => {
+const createResource = async (req, res) => {
     try {
         const resource = await Resource.create(req.body);
         res.status(200).json(resource);
@@ -37,7 +37,7 @@ const updateResource = async (req, res) => {
         const {id} = req.params;
         const Resource = await Resource.findByIdAndUpdate(id, req.body);
         if (!Resource) {
-            res.status(404).json({message: "Resource not found"});
+            res.status(404).json({message: 'Resource not found'});
         }
 
         const updatedResource = await Resource.findById(id);
@@ -46,3 +46,25 @@ const updateResource = async (req, res) => {
         res.status(500).json({message: error.message});
     }
 };
+
+const deleteResource = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const resource = await Resource.findByIdAndDelete(id);
+        if (!resource) {
+            res.status(404).json({message: 'Resource not found'});
+        }
+
+        res.status(200).json({message: 'Resource Successfully Deleted'})
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+};
+
+module.exports = {
+    getResources,
+    getResource,
+    createResource,
+    updateResource,
+    deleteResource
+}

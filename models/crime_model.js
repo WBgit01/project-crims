@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const CrimeSchema = new mongoose.Schema (
      {
         id: {
-            type: int,
+            type: String,
             required: true
         },
 
@@ -41,5 +41,5 @@ const CrimeSchema = new mongoose.Schema (
     }
 );
 
-const Crime = mongoose.model('Product', ProuctSchema);
+const Crime = mongoose.model('Crime', CrimeSchema);
 module.exports = Crime;
