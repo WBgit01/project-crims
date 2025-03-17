@@ -1,3 +1,4 @@
+const { json } = require('express');
 const Crime = require('../models/crime_model.js');
 
 // Display all crimes
@@ -17,7 +18,7 @@ const getCrime = async (req, res) => {
         const crime = await Crime.findOne({crime_id: crime_id});
 
         if (!crime) {
-            return res.status(404).json({ message: "Crime not found" });
+            return res.status(404).json({ message: 'Crime not found' });
         }
 
         res.status(200).json(crime);
@@ -43,7 +44,7 @@ const updateCrime = async (req, res) => {
         const crime = await Crime.findOneAndUpdate({crime_id: crime_id}, req.body, { new: true });
 
         if (!crime) {
-            return res.status(404).json({ message: "Crime not found" });
+            return res.status(404).json({ message: 'Crime not found' });
         }
 
         res.status(200).json(crime);
@@ -52,9 +53,26 @@ const updateCrime = async (req, res) => {
     }
 };
 
+// Delete crime
+const deleteCrime = async (req, res) => {
+    try {
+        const { crime_id } = req.params;
+        const crime = await Crime.findOneAndDelete({crime_id: crime_id});
+
+        if (!crime) {
+            return res.status(404).json({message: 'Crime not found'});
+        }
+
+        res.status(200).json({message: 'Crime Successffuly Deleted'});
+    } catch (error) {
+        res.status(500).json({messger:error.message});
+    }
+};
+
 module.exports = {
     getCrimes,
     getCrime,
     reportCrime,
-    updateCrime
+    updateCrime,
+    deleteCrime
 };

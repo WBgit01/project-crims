@@ -41,7 +41,7 @@ const updateTransportResource = async (req, res) => {
         }
 
         const updatedResource = await Resource.findOne(transport_id);
-        res.status(200).json(resource);
+        res.status(200).json(updatedResource);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
