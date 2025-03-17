@@ -16,7 +16,6 @@ const getCrime = async (req, res) => {
     try {
         const { crime_id } = req.params;
         const crime = await Crime.findOne({crime_id: crime_id});
-
         if (!crime) {
             return res.status(404).json({ message: 'Crime not found' });
         }
@@ -42,7 +41,6 @@ const updateCrime = async (req, res) => {
     try {
         const { crime_id } = req.params;
         const crime = await Crime.findOneAndUpdate({crime_id: crime_id}, req.body, { new: true });
-
         if (!crime) {
             return res.status(404).json({ message: 'Crime not found' });
         }
@@ -58,7 +56,6 @@ const deleteCrime = async (req, res) => {
     try {
         const { crime_id } = req.params;
         const crime = await Crime.findOneAndDelete({crime_id: crime_id});
-
         if (!crime) {
             return res.status(404).json({message: 'Crime not found'});
         }

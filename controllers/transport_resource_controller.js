@@ -15,6 +15,10 @@ const getTransportResource = async (req, res) => {
     try {
         const {transport_id} = req.params;
         const resource = await Resource.findOne({transport_id: transport_id});
+        if (!resource) {
+            res.status(404).json({message: 'Resource not found'});
+        }
+        
         res.status(200).json(resource)
     } catch (error) {
         res.status(500).json({message: error.message});
