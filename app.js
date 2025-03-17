@@ -19,7 +19,7 @@ app.use('/resources', resourceRoute);
 
 const PORT = process.env.PORT || 8080;
 app.get('/', (req,res) => {
-  res.send("Tangina mo!");
+  res.send("Connected");
 });
 
 app.listen(PORT, () => {

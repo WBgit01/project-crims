@@ -1,4 +1,4 @@
-const Resource = require('../resources_model.js');
+const Resource = require('../models/resources_model.js');
 
 // Display all Resources
 const getResource = async (req, res) => {
