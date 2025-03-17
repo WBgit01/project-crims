@@ -1,71 +1,111 @@
-const Resource = require('../models/resources_model.js');
+// // Function to select the correct model
+// const getModel = (resourceType) => {
+//     if (resourceType === 'human') return HumanResource;
+//     if (resourceType === 'transport') return TransportResource;
+//     return null;
+// };
 
-// Display all Resources
-const getResource = async (req, res) => {
-    try {
-        const resource = await Resource.find({});
-        res.status(200).json(resource);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-};
+// // Display all resources
+// const getResources = async (req, res) => {
+//     try {
+//         const { resourceType } = req.params;
+//         const Model = getModel(resourceType);
 
-// Display browsed Resource
-const getResources = async (req, res) => {
-    try {
-        const {id} = req.params;
-        const resource = await Resource.findById(id);
-        res. status(200).json(resource)
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-};
+//         if (!Model) {
+//             return res.status(400).json({ message: "Invalid resource type" });
+//         }
 
-// Report Resource
-const createResource = async (req, res) => {
-    try {
-        const resource = await Resource.create(req.body);
-        res.status(200).json(resource);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-};
+//         const resources = await Model.find({});
+//         res.status(200).json(resources);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
 
-// Update Resource
-const updateResource = async (req, res) => {
-    try {
-        const {id} = req.params;
-        const resource = await Resource.findByIdAndUpdate(id, req.body);
-        if (!Resource) {
-            res.status(404).json({message: 'Resource not found'});
-        }
+// // Display a single resource
+// const getResource = async (req, res) => {
+//     try {
+//         const { resourceType, id } = req.params;
+//         const Model = getModel(resourceType);
 
-        const updatedResource = await Resource.findById(id);
-        res.status(200).json(resource);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-};
+//         if (!Model) {
+//             return res.status(400).json({ message: "Invalid resource type" });
+//         }
 
-// Delete Resource
-const deleteResource = async (req, res) => {
-    try {
-        const {id} = req.params;
-        const resource = await Resource.findByIdAndDelet(id);
-        if (!resource) {
-            res.status(404).json({message: 'Resource not found'})
-        }
+//         const resource = await Model.findById(id);
+//         if (!resource) {
+//             return res.status(404).json({ message: "Resource not found" });
+//         }
 
-        res.status(200).json({message: 'Resource Successfully Deleted!'});
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-};
+//         res.status(200).json(resource);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
 
-module.exports = {
-    getResources,
-    getResource,
-    createResource,
-    updateResource,
-    deleteResource
-}
+// // Create a new resource
+// const createResource = async (req, res) => {
+//     try {
+//         const { resourceType } = req.params;
+//         const Model = getModel(resourceType);
+
+//         if (!Model) {
+//             return res.status(400).json({ message: "Invalid resource type" });
+//         }
+
+//         const resource = await Model.create(req.body);
+//         res.status(201).json(resource);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+
+// // Update a resource
+// const updateResource = async (req, res) => {
+//     try {
+//         const { resourceType, id } = req.params;
+//         const Model = getModel(resourceType);
+
+//         if (!Model) {
+//             return res.status(400).json({ message: "Invalid resource type" });
+//         }
+
+//         const resource = await Model.findByIdAndUpdate(id, req.body, { new: true });
+//         if (!resource) {
+//             return res.status(404).json({ message: "Resource not found" });
+//         }
+
+//         res.status(200).json(resource);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+
+// // Delete a resource
+// const deleteResource = async (req, res) => {
+//     try {
+//         const { resourceType, id } = req.params;
+//         const Model = getModel(resourceType);
+
+//         if (!Model) {
+//             return res.status(400).json({ message: "Invalid resource type" });
+//         }
+
+//         const resource = await Model.findByIdAndDelete(id);
+//         if (!resource) {
+//             return res.status(404).json({ message: "Resource not found" });
+//         }
+
+//         res.status(200).json({ message: "Resource successfully deleted!" });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+
+// module.exports = {
+//     getResources,
+//     getResource,
+//     createResource,
+//     updateResource,
+//     deleteResource
+// };
