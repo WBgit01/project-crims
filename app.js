@@ -1,5 +1,3 @@
-//npm install or npm i express
-
 require('dotenv').config();
 const express = require('express');
 const app = express();
