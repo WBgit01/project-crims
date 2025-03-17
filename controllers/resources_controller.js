@@ -1,4 +1,4 @@
-const Resource = require('../models/resources_model.js');
+const Resource = require('../resources_model.js');
 
 // Display all Resources
 const getResource = async (req, res) => {
@@ -14,7 +14,7 @@ const getResource = async (req, res) => {
 const getResources = async (req, res) => {
     try {
         const {id} = req.params;
-        const resource = await Resource.findById({id});
+        const resource = await Resource.findById(id);
         res. status(200).json(resource)
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -35,7 +35,7 @@ const createResource = async (req, res) => {
 const updateResource = async (req, res) => {
     try {
         const {id} = req.params;
-        const Resource = await Resource.findByIdAndUpdate(id, req.body);
+        const resource = await Resource.findByIdAndUpdate(id, req.body);
         if (!Resource) {
             res.status(404).json({message: 'Resource not found'});
         }
@@ -47,15 +47,16 @@ const updateResource = async (req, res) => {
     }
 };
 
+// Delete Resource
 const deleteResource = async (req, res) => {
     try {
         const {id} = req.params;
-        const resource = await Resource.findByIdAndDelete(id);
+        const resource = await Resource.findByIdAndDelet(id);
         if (!resource) {
-            res.status(404).json({message: 'Resource not found'});
+            res.status(404).json({message: 'Resource not found'})
         }
 
-        res.status(200).json({message: 'Resource Successfully Deleted'})
+        res.status(200).json({message: 'Resource Successfully Deleted!'});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
