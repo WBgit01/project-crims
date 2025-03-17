@@ -62,7 +62,7 @@ const deleteCrime = async (req, res) => {
 
         res.status(200).json({message: 'Crime Successffuly Deleted'});
     } catch (error) {
-        res.status(500).json({messger:error.message});
+        res.status(500).json({message: error.message});
     }
 };
 
