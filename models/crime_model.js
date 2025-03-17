@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 
 const CrimeSchema = new mongoose.Schema (
      {
-        id: {
-            type: Number,
-            required: true
+        crime_id: {
+            type: String,
+            required: true,
+            unique: true
         },
 
         categories: {
@@ -18,7 +19,7 @@ const CrimeSchema = new mongoose.Schema (
             required: true
         },
 
-        locations: {
+        location: {
             type: String,
             required: true
         },
@@ -41,5 +42,5 @@ const CrimeSchema = new mongoose.Schema (
     }
 );
 
-const Crime = mongoose.model('Product', ProuctSchema);
+const Crime = mongoose.model('Crime', CrimeSchema);
 module.exports = Crime;
