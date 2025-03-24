@@ -51,6 +51,25 @@ const updateHumanResource = async (req, res) => {
     }
 };
 
+// Partially update Resource
+const patchHumanResource = async (req, res) => {
+    try {
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).json({ message: 'No fields provided for update' });
+        }
+
+        const { human_res_id } = req.params;
+        const resource = await Resource.findOneAndUpdate({ human_res_id: human_res_id }, req.body, { new: true });
+        if (!resource) {
+            return res.status(404).json({ message: 'Resource not found' });
+        }
+        res.status(200).json(resource);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 // Delete Resource
 const deleteHumanResource = async (req, res) => {
     try {
@@ -60,7 +79,7 @@ const deleteHumanResource = async (req, res) => {
             res.status(404).json({message: 'Resource not found'})
         }
 
-        res.status(200).json({message: 'Resource Successfully Deleted!'});
+        res.status(200).json({message: 'Resource Successfully Deleted'});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -71,5 +90,6 @@ module.exports = {
     getHumanResource,
     createHumanResource,
     updateHumanResource,
+    patchHumanResource,
     deleteHumanResource
 }

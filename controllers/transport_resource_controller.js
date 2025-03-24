@@ -51,6 +51,24 @@ const updateTransportResource = async (req, res) => {
     }
 };
 
+// Partially update Resource
+const patchTransportResource = async (req, res) => {
+    try {
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).json({ message: 'No fields provided for update' });
+        }
+
+        const { transport_id } = req.params;
+        const resource = await Resource.findOneAndUpdate({ transport_id: transport_id }, req.body, { new: true });
+        if (!resource) {
+            return res.status(404).json({ message: 'Resource not found' });
+        }
+        res.status(200).json(resource);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Delete Resource
 const deleteTransportResource = async (req, res) => {
     try {
@@ -71,5 +89,6 @@ module.exports = {
     getTransportResource,
     createTransportResource,
     updateTransportResource,
+    patchTransportResource,
     deleteTransportResource
 }

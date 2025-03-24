@@ -51,6 +51,24 @@ const updateCrime = async (req, res) => {
     }
 };
 
+// Partially update crime
+const patchCrime = async (req, res) => {
+    try {
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).json({ message: 'No fields provided for update' });
+        }
+
+        const { crime_id } = req.params;
+        const crime = await Crime.findOneAndUpdate({ crime_id: crime_id }, req.body, { new: true });
+        if (!crime) {
+            return res.status(404).json({ message: 'Crime not found' });
+        }
+        res.status(200).json(crime);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Delete crime
 const deleteCrime = async (req, res) => {
     try {
@@ -71,5 +89,6 @@ module.exports = {
     getCrime,
     reportCrime,
     updateCrime,
+    patchCrime,
     deleteCrime
 };

@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/thehungrycoder225/guide-to-mongodb/issues"
   },
-  "homepage": "https://github.com/thehungrycoder225/guide-to-mongodb#readme"
+  "homepage": "https://github.com/thehungrycoder225/guide-to-mongodb#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
