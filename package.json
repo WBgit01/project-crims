@@ -1,32 +1,14 @@
 {
-  "name": "demo-server",
-  "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-    "test": "jest",
-    "dev": "nodemon app.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It acts as a bridge between your Node.js application and MongoDB, providing a structured way to interact with the database.",
-  "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongoose": "^8.12.1",
-    "nodemon": "^3.1.9"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thehungrycoder225/guide-to-mongodb.git"
-  },
-  "bugs": {
-    "url": "https://github.com/thehungrycoder225/guide-to-mongodb/issues"
-  },
-  "homepage": "https://github.com/thehungrycoder225/guide-to-mongodb#readme",
   "devDependencies": {
-    "jest": "^29.7.0",
-    "supertest": "^7.1.0"
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3"
+  },
+  "scripts": {
+    "client": "cd crims-frontend && npm start",
+    "server": "cross-env NODE_ENV=development nodemon crims-backend/app.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "nodemon": "^3.1.9"
   }
 }

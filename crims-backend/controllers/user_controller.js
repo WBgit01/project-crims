@@ -13,16 +13,12 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Hash the password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
         // Create a new user
         const newUser = new User({
             firstName,
             lastName,
             email,
-            password: hashedPassword,
+            password,
             role,
             phoneNumber,
             address,

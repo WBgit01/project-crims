@@ -1,5 +1,10 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
 const mongoose = require('mongoose');
-require('dotenv').config();
+
+console.log("CLOUD_URI:", process.env.CLOUD_URI);
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.CLOUD_URI, {});
