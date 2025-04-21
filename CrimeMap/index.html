@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRIMS - Crime Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h3>📍 CRIME MAP</h3>
+      <label>Category (Crimes Against)</label>
+      <select><option>Person</option><option>Property</option><option>Morality</option></select>
+
+      <label>Stages of Felony</label>
+      <select><option>Attempted</option><option>Frustrated</option><option>Consummated</option></select>
+
+      <label>Offense</label>
+      <select id="offense">
+        <option value="Theft">Theft</option>
+        <option value="Assault">Assault</option>
+        <option value="Robbery">Robbery</option>
+        <option value="Homicide">Homicide</option>
+      </select>
+
+      <label>Modus</label>
+      <select><option>Snatching</option><option>Breaking & Entering</option><option>Hold-up</option></select>
+
+      <label>Date of Commission</label>
+      <input type="date" />
+
+      <label>To Date</label>
+      <input type="date" />
+
+      <label>City/Municipality</label>
+      <select><option>Sample City</option></select>
+
+      <label>Barangay</label>
+      <select><option>Sample Barangay</option></select>
+
+      <label>Street</label>
+      <select><option>Sample Street</option></select>
+
+      <button id="plotBtn">Plot Crime</button>
+      <button id="heatmapBtn">Toggle Heatmap</button>
+    </div>
+
+    <div class="map-container">
+      <div id="map"></div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th colspan="2">SELECTED LOCATION - (POST)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Incidents</td><td>Data (post)</td></tr>
+          <tr><td>Victims</td><td>Data (post)</td></tr>
+          <tr><td>Suspects</td><td>Data (post)</td></tr>
+          <tr><td>Sample Category</td><td>Data (post)</td></tr>
+          <tr><td>Sample Category</td><td>Data (post)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

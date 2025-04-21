@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  pdding: 15px;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+}
+    
+.sidebar label {
+  display: block;
+  margin: 10px 0 5px;
+} 
+
+.sidebar select,
+.sidebar button {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.map-container {
+  flex: 1;
+  padding: 15px;
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+    
+.data-table {
+  margin-top: 15px;
+  background: #fff;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
