@@ -12,7 +12,6 @@ jest.mock('../controllers/crime_controller.js', () => ({
     deleteCrime: (req, res) => res.status(200).json({ message: `Crime ${req.params.crime_id} deleted` })
 }));
 
-// Create a test app
 const app = express();
 app.use(express.json());
 app.use('/crimes', crimeRoutes);
