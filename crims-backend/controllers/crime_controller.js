@@ -1,5 +1,6 @@
 const { json } = require('express');
 const Crime = require('../models/crime_model.js');
+const Counter = require('../models/counter_model.js');
 
 // Display all crimes
 const getCrimes = async (req, res) => {
@@ -29,7 +30,21 @@ const getCrime = async (req, res) => {
 // Report crime
 const reportCrime = async (req, res) => {
     try {
-        const crime = await Crime.create(req.body);
+        const counter = await Counter.findOneAndUpdate(
+            { name: 'crime' },
+            { $inc: { seq: 1 } },
+            { new: true, upsert: true }
+        );
+
+        const nextSeq = counter.seq.toString().padStart(8, '0');
+        const crime_id = `CRIME-${nextSeq}`;
+
+        const crimeData = {
+            crime_id,
+            ...req.body
+        };
+
+        const crime = await Crime.create(crimeData);
         res.status(201).json(crime);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -84,11 +99,45 @@ const deleteCrime = async (req, res) => {
     }
 };
 
+const formatDate = (date, timeFrame) => {
+    const d = new Date(date);
+    if (timeFrame === 'weekly') {
+      const week = Math.ceil((d.getDate() - d.getDay()) / 7);
+      return `${d.getFullYear()}-W${week}`;
+    } else if (timeFrame === 'monthly') {
+      return `${d.getFullYear()}-${d.getMonth() + 1}`;
+    } else if (timeFrame === 'yearly') {
+      return `${d.getFullYear()}`;
+    }
+  };
+  
+  const getCrimeTrends = async (req, res) => {
+    try {
+      const { timeFrame } = req.params;
+      const crimes = await Crime.find({});
+  
+      const crimeTrends = crimes.reduce((acc, crime) => {
+        const formattedDate = formatDate(crime.reportedAt, timeFrame);
+        if (!acc[formattedDate]) {
+          acc[formattedDate] = { date: formattedDate, crimeCount: 0 };
+        }
+        acc[formattedDate].crimeCount++;
+        return acc;
+      }, {});
+  
+      const result = Object.values(crimeTrends);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
 module.exports = {
     getCrimes,
     getCrime,
     reportCrime,
     updateCrime,
     patchCrime,
-    deleteCrime
+    deleteCrime,
+    getCrimeTrends
 };

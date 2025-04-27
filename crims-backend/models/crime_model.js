@@ -24,6 +24,11 @@ const CrimeSchema = new mongoose.Schema (
             required: true
         },
 
+        map_location: {
+            type: { type: String, enum: ['Point'], required: true },
+            coordinates: { type: [Number], required: true },
+        },
+
         status: {
             type: String,
             required: true
