@@ -12,8 +12,16 @@ export default function ReportCrime() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Custom location pin icon
+  const customIcon = new L.Icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+
   function LocationMarker() {
-    const map = useMapEvents({
+    useMapEvents({
       click(event) {
         const { lat, lng } = event.latlng;
         setMapLocation({ lat, lng });
@@ -21,7 +29,7 @@ export default function ReportCrime() {
     });
 
     return (
-      <Marker position={mapLocation}>
+      <Marker position={mapLocation} icon={customIcon}>
         <Popup>Crime Location</Popup>
       </Marker>
     );
@@ -37,10 +45,10 @@ export default function ReportCrime() {
       await axios.post('/crime/create', {
         categories,
         types,
-        location, // The user-entered location string
+        location,
         map_location: {
           type: 'Point',
-          coordinates: [mapLocation.lng, mapLocation.lat], // MongoDB expects [longitude, latitude]
+          coordinates: [mapLocation.lng, mapLocation.lat],
         },
         status: 'Pending'
       }, {
@@ -102,7 +110,7 @@ export default function ReportCrime() {
 
       {/* Home Button */}
       <div style={{ marginTop: '1rem' }}>
-        <button onClick={() => navigate('/dashboard')}>
+        <button type="button" onClick={() => navigate('/dashboard')}>
           Go to Dashboard
         </button>
       </div>

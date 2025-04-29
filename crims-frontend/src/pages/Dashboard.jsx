@@ -27,10 +27,8 @@ export default function Dashboard() {
         setCrimes(res.data);
         setFilteredCrimes(res.data);
 
-        // Get unique categories
         const uniqueCategories = ['All', ...new Set(res.data.map(c => c.categories))];
         setCategories(uniqueCategories);
-
       } catch (err) {
         console.error(err);
         setError(err.response?.data?.message || 'Failed to fetch crimes');
@@ -44,7 +42,7 @@ export default function Dashboard() {
 
   const handleSearchAndFilter = () => {
     let results = [...crimes];
-  
+
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       results = results.filter(crime =>
@@ -54,19 +52,19 @@ export default function Dashboard() {
         crime.types.toLowerCase().includes(query)
       );
     }
-  
+
     if (selectedCategory !== 'All') {
       results = results.filter(crime => crime.categories === selectedCategory);
     }
-  
+
     if (sortOrder === 'latest') {
       results = results.sort((a, b) => new Date(b.reportedAt) - new Date(a.reportedAt));
     } else {
       results = results.sort((a, b) => new Date(a.reportedAt) - new Date(b.reportedAt));
     }
-  
+
     setFilteredCrimes(results);
-  };  
+  };
 
   const toggleSearchVisibility = () => {
     setSearchVisible(!searchVisible);
@@ -83,8 +81,11 @@ export default function Dashboard() {
         <button onClick={() => navigate('/statistics')} style={{ marginRight: '10px' }}>
           View Statistics
         </button>
-        <button onClick={toggleSearchVisibility}>
+        <button onClick={toggleSearchVisibility} style={{ marginRight: '10px' }}>
           Search Report
+        </button>
+        <button onClick={() => navigate('/crime-map')}>
+          Crime Map
         </button>
       </div>
 
