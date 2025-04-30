@@ -45,8 +45,8 @@ export default function CommunityDashboard() {
         <div className="hero-text">
           <h1 className="hero-heading">
             Crime Reporting <br />
-            and Information <br />
-            Monitoring System
+            Information <br />
+            Management System
           </h1>
           <button className="get-started-btn">
             Get Started
