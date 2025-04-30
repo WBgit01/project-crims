@@ -58,15 +58,6 @@
   font-size: 16px;
 }
 
-/* .login-button {
-  padding: 6px 16px;
-  border: 1px solid black;
-  border-radius: 20px;
-  background: white;
-  cursor: pointer;
-  font-weight: bold;
-} */
-
 .hero-flex {
   display: flex;
   justify-content: space-around;
