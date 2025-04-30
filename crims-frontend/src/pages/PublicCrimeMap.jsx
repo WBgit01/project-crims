@@ -3,8 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import axios from '../api/axios';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import '../styles/PublicCrimeMap.css';
 
-// Fix for marker icons not showing
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
@@ -34,17 +35,16 @@ export default function PublicCrimeMap() {
     fetchCrimes();
   }, []);
 
-  const centerPosition = [13.44306326314794, 121.85726165771486]; // Marinduque
-
+  const centerPosition = [13.44306326314794, 121.85726165771486];
   return (
-    <div>
-      <h2>Community Crime Map</h2>
+    <div className="crime-map-container">
+      <h2 className="map-title">Community Crime Map</h2>
 
-      {loading && <p>Loading crimes...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <div className="loader">Loading crimes...</div>}
+      {error && <p className="error-message">{error}</p>}
 
-      <div style={{ height: '600px', width: '100%' }}>
-        <MapContainer center={centerPosition} zoom={11} style={{ height: '100%', width: '100%' }}>
+      <div className="map-wrapper">
+        <MapContainer center={centerPosition} zoom={11} className="crime-map">
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
@@ -56,14 +56,16 @@ export default function PublicCrimeMap() {
               <Marker
                 key={idx}
                 position={[
-                  crime.map_location.coordinates[1], // Latitude
-                  crime.map_location.coordinates[0], // Longitude
+                  crime.map_location.coordinates[1], // Lat
+                  crime.map_location.coordinates[0], // Long
                 ]}
               >
-                <Popup>
-                  <strong>{crime.types}</strong><br />
-                  {new Date(crime.reportedAt).toLocaleDateString()}<br />
-                  {crime.location}
+                <Popup className="popup-style">
+                  <div>
+                    <strong>{crime.types}</strong><br />
+                    <span>{new Date(crime.reportedAt).toLocaleDateString()}</span><br />
+                    <em>{crime.location}</em>
+                  </div>
                 </Popup>
               </Marker>
             ))}

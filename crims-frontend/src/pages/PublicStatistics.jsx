@@ -3,6 +3,7 @@ import axios from '../api/axios';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import 'chart.js/auto';
+import '../styles/PublicStatistics.css';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -88,37 +89,35 @@ export default function PublicStatistics() {
   };
 
   return (
-    <div>
-      <h2>Public Crime Statistics</h2>
+    <div className="statistics-container">
+      <h2 className="statistics-header">Public Crime Statistics</h2>
 
-      <div style={{ marginBottom: '1rem' }}>
-        <label>From: </label>
+      <div className="date-filter">
+        <label>From:</label>
         <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
-          style={{ marginRight: '10px' }}
         />
-        <label>Till: </label>
+        <label>Till:</label>
         <input
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
-          style={{ marginRight: '10px' }}
         />
         <button onClick={handleDateChange}>Apply Date Filter</button>
       </div>
 
-      {loading && <p>Loading statistics...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <p className="loading-message">Loading statistics...</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      <h3>Crime Trends (Filtered by Date Range)</h3>
+      <h3 className="statistics-header">Crime Trends (Filtered by Date Range)</h3>
 
-      <div style={{ width: '80%', margin: '0 auto' }}>
+      <div className="chart-wrapper">
         {filteredCrimes.length > 0 ? (
           <Line data={generateGraphData()} />
         ) : (
-          <p>No crimes found in the selected date range.</p>
+          <p className='no-data-msg'>No crimes found in the selected date range.</p>
         )}
       </div>
     </div>
