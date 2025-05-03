@@ -1,0 +1,65 @@
+.container {
+    padding: 2rem;
+  }
+  
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .buttonGroup {
+    margin-bottom: 1.5rem;
+  }
+  
+  .button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  .filterContainer {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 1rem;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .th, .td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .th {
+    background-color: #f4f4f4;
+  }
+  
+  .td {
+    background-color: #fff;
+  }
+  

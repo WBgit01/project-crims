@@ -3,7 +3,7 @@ import axios from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Dashboard.module.css';
 
-export default function Dashboard() {
+export default function AdminDashboard() {
   const [crimes, setCrimes] = useState([]);
   const [filteredCrimes, setFilteredCrimes] = useState([]);
   const [error, setError] = useState('');
@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [sortOrder, setSortOrder] = useState('latest');
   const [categories, setCategories] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -71,14 +72,29 @@ export default function Dashboard() {
     setSearchVisible(!searchVisible);
   };
 
+  const handleSendNotification = async () => {
+    const message = prompt('Enter message to send to all users:');
+    if (!message) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.post('/admin/notify', { message }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert('Notification sent successfully!');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to send notification.');
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Dashboard</h2>
+      <h2 className={styles.heading}>Admin Dashboard</h2>
 
       <div className={styles.buttonGroup}>
-        <button onClick={() => navigate('/report-crime')} className={styles.button}>
-          Report a Crime
-        </button>
         <button onClick={() => navigate('/statistics')} className={styles.button}>
           View Statistics
         </button>
@@ -87,6 +103,12 @@ export default function Dashboard() {
         </button>
         <button onClick={() => navigate('/crime-map')} className={styles.button}>
           Crime Map
+        </button>
+        <button onClick={() => navigate('/admin/manage-users')} className={styles.button}>
+          Manage Users
+        </button>
+        <button onClick={handleSendNotification} className={styles.button}>
+          Notify Users
         </button>
       </div>
 

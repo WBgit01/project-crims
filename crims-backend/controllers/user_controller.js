@@ -2,6 +2,35 @@ const User = require('../models/user_model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Get all users
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Get a user by ID
+const getUser = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Find the user by ID
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Return user data without password field
+        const { password, ...userData } = user.toObject();
+        res.status(200).json(userData);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Register a new user
 const registerUser = async (req, res) => {
     const { firstName, lastName, email, password, role, phoneNumber, address } = req.body;
@@ -42,18 +71,17 @@ const loginUser = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Compare the provided password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Generate a JWT token
         const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(200).json({
             message: 'Login successful',
             token,
+            role: user.role,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -77,4 +105,19 @@ const updateUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, updateUser };
+// Delete a user
+const deleteUser = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const user = await User.findByIdAndDelete(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { getAllUsers, getUser, registerUser, loginUser, updateUser, deleteUser };
