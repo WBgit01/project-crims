@@ -19,12 +19,16 @@ import PublicStatistics from './pages/PublicStatistics';
 // Role-based redirector
 import DashboardRedirect from './components/DashboardRedirect';
 
+// Landing Page
+import LandingPage from './pages/LandingPage';  // Import the new LandingPage component
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/community" element={<CommunityDashboard />} />
         <Route path="/community/crime-map" element={<PublicCrimeMap />} />

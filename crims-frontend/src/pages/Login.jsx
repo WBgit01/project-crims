@@ -1,16 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Clear localStorage on component mount for testing purposes
-    localStorage.clear();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +15,10 @@ export default function Login() {
       // Store token and role
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.role);
+
+      // Clear input fields after successful login
+      setEmail('');
+      setPassword('');
 
       alert('Login successful!');
 
@@ -41,19 +40,17 @@ export default function Login() {
         type="email"
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
+        value={email}
         required
       />
       <input
         type="password"
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        value={password}
         required
       />
       <button type="submit">Login</button>
-
-      <p style={{ marginTop: '1rem' }}>
-        Don't have an account? <Link to="/register">Register here</Link>
-      </p>
     </form>
   );
 }
