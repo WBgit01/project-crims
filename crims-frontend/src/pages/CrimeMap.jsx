@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import logo from '../assets/crims_logo.png';
+import styles from '../styles/Dashboard.module.css';
 
-// Fix for default marker icons not showing in some setups
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
@@ -38,48 +39,78 @@ export default function CrimeMap() {
     fetchCrimes();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   const centerPosition = [13.44306326314794, 121.85726165771486];
 
   return (
-    <div>
-      <h2>Crime Map</h2>
+    <div className={styles.wrapper}>
+      {/* Top Navigation Bar */}
+      <header className={styles.topNav}>
+        <div className={styles.logo}>
+          <img src={logo} className={styles.logoImage} />
+          <span>CRIMS</span>
+        </div>
+        <nav className={styles.navLinks}>
+          <a href="#">Home</a>
+          <a href="#">Help</a>
+          <a href="#">FAQ</a>
+        </nav>
+      </header>
 
-      <button onClick={() => navigate('/dashboard')} style={{ marginBottom: '1rem' }}>
-        Back to Dashboard
-      </button>
+      <div className={styles.contentWrapper}>
+        {/* Sidebar */}
+        <aside className={styles.sidebar}>
+          <button className={styles.sideButton} onClick={() => navigate('/dashboard')}>📊 Dashboard</button>
+          <button className={`${styles.sideButton} ${styles.active}`} onClick={() => navigate('/crime-map')}>🗺️ Crime Map</button>
+          <button className={styles.sideButton} onClick={() => navigate('/report-crime')}>📄 Report Crime</button>
+          <button className={styles.sideButton} onClick={() => navigate('/statistics')}>📈 Statistics</button>
+          <button className={styles.logoutButton} onClick={() => { localStorage.removeItem('token'); navigate('/') }}>⭕ Logout</button>
+        </aside>
 
-      {loading && <p>Loading crimes...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        {/* Main Panel */}
+        <main className={styles.mainContent}>
+          <div className={styles.titleBar}>🗺️ CRIME MAP</div>
+          {/* <div className={styles.subTitleBar}>Latest Crime Report</div> */}
 
-      <div style={{ height: '600px', width: '100%' }}>
-        <MapContainer center={centerPosition} zoom={11} style={{ height: '100%', width: '100%' }}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; OpenStreetMap contributors'
-          />
+          <table className={styles.table}>
+            {loading && <p>Loading crimes...</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
 
-          {/* Plot all crimes */}
-          {crimes
-            .filter(c => c.map_location && c.map_location.coordinates?.length === 2)
-            .map((crime, idx) => (
-              <Marker
-                key={idx}
-                position={[
-                  crime.map_location.coordinates[1], // lat
-                  crime.map_location.coordinates[0]  // lng
-                ]}
-              >
-                <Popup>
-                  <strong>{crime.categories}</strong><br />
-                  {crime.types}<br />
-                  {crime.location}<br />
-                  <em>Status:</em> {crime.status}<br />
-                  <em>Reported:</em> {new Date(crime.reportedAt).toLocaleString()}
-                </Popup>
-              </Marker>
-            ))
-          }
-        </MapContainer>
+            <div style={{ height: '600px', width: '100%' }}>
+              <MapContainer center={centerPosition} zoom={11} style={{ height: '100%', width: '100%' }}>
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; OpenStreetMap contributors'
+                />
+
+                {/* Plot all crimes */}
+                {crimes
+                  .filter(c => c.map_location && c.map_location.coordinates?.length === 2)
+                  .map((crime, idx) => (
+                    <Marker
+                      key={idx}
+                      position={[
+                        crime.map_location.coordinates[1], // lat
+                        crime.map_location.coordinates[0]  // lng
+                      ]}
+                    >
+                      <Popup>
+                        <strong>{crime.categories}</strong><br />
+                        {crime.types}<br />
+                        {crime.location}<br />
+                        <em>Status:</em> {crime.status}<br />
+                        <em>Reported:</em> {new Date(crime.reportedAt).toLocaleString()}
+                      </Popup>
+                    </Marker>
+                  ))}
+              </MapContainer>
+            </div>
+          </table>
+        </main>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/crims_logo.png';
 import styles from '../styles/Dashboard.module.css';
 
 export default function Dashboard() {
@@ -71,90 +72,72 @@ export default function Dashboard() {
     setSearchVisible(!searchVisible);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   return (
-    <div className={styles.container}>
-      <h2 className={styles.heading}>Dashboard</h2>
-
-      <div className={styles.buttonGroup}>
-        <button onClick={() => navigate('/report-crime')} className={styles.button}>
-          Report a Crime
-        </button>
-        <button onClick={() => navigate('/statistics')} className={styles.button}>
-          View Statistics
-        </button>
-        <button onClick={toggleSearchVisibility} className={styles.button}>
-          Search Report
-        </button>
-        <button onClick={() => navigate('/crime-map')} className={styles.button}>
-          Crime Map
-        </button>
-      </div>
-
-      {searchVisible && (
-        <div className={styles.filterContainer}>
-          <input
-            type="text"
-            placeholder="Search crimes..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.input}
-          />
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className={styles.input}
-          >
-            {categories.map((cat, idx) => (
-              <option key={idx} value={cat}>{cat}</option>
-            ))}
-          </select>
-          <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
-            className={styles.input}
-          >
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
-          </select>
-          <button onClick={handleSearchAndFilter} className={styles.button}>
-            Apply Filters
-          </button>
+    <div className={styles.wrapper}>
+      {/* Top Navigation Bar */}
+      <header className={styles.topNav}>
+        <div className={styles.logo}>
+          <img src={logo} className={styles.logoImage} />
+          <span>CRIMS</span>
         </div>
-      )}
+        <nav className={styles.navLinks}>
+          <a href="#">Home</a>
+          <a href="#">Help</a>
+          <a href="#">FAQ</a>
+        </nav>
+      </header>
 
-      {loading && <p>Loading crimes...</p>}
-      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.contentWrapper}>
+        {/* Sidebar */}
+        <aside className={styles.sidebar}>
+          <button className={`${styles.sideButton} ${styles.active}`} onClick={() => navigate('/dashboard')}>📊 Dashboard</button>
+          <button className={styles.sideButton} onClick={() => navigate('/crime-map')}>🗺️ Crime Map</button>
+          <button className={styles.sideButton} onClick={() => navigate('/report-crime')}>📄 Report Crime</button>
+          <button className={styles.sideButton} onClick={() => navigate('/statistics')}>📈 Statistics</button>
+          <button className={styles.logoutButton} onClick={handleLogout}>⭕ Logout</button>
+        </aside>
 
-      <h3>Latest Crime Reports</h3>
-      <div>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th className={styles.th}>Crime ID</th>
-              <th className={styles.th}>Category</th>
-              <th className={styles.th}>Type</th>
-              <th className={styles.th}>Location</th>
-              <th className={styles.th}>Status</th>
-              <th className={styles.th}>Reported At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCrimes.length === 0 ? (
-              <tr><td className={styles.td} colSpan="6">No crimes found.</td></tr>
-            ) : (
-              filteredCrimes.map((crime, index) => (
-                <tr key={index}>
-                  <td className={styles.td}>{crime.crime_id}</td>
-                  <td className={styles.td}>{crime.categories}</td>
-                  <td className={styles.td}>{crime.types}</td>
-                  <td className={styles.td}>{crime.location}</td>
-                  <td className={styles.td}>{crime.status}</td>
-                  <td className={styles.td}>{new Date(crime.reportedAt).toLocaleString()}</td>
+        {/* Main Panel */}
+        <main className={styles.mainContent}>
+          <div className={styles.titleBar}>📊 DASHBOARD</div>
+          <div className={styles.subTitleBar}>Latest Crime Report</div>
+
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Crime ID</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Reported At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCrimes.length === 0 ? (
+                <tr>
+                  <td colSpan="6">No crimes found.</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                filteredCrimes.map((crime, index) => (
+                  <tr key={index}>
+                    <td>{crime.crime_id}</td>
+                    <td>{crime.categories}</td>
+                    <td>{crime.types}</td>
+                    <td>{crime.location}</td>
+                    <td>{crime.status}</td>
+                    <td>{new Date(crime.reportedAt).toLocaleString()}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </main>
       </div>
     </div>
   );
