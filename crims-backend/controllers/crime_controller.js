@@ -8,7 +8,7 @@ const getCrimes = async (req, res) => {
         const crimes = await Crime.find({});
         res.status(200).json(crimes);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
 };
 
@@ -18,12 +18,12 @@ const getCrime = async (req, res) => {
         const { crime_id } = req.params;
         const crime = await Crime.findOne({crime_id: crime_id});
         if (!crime) {
-            return res.status(404).json({ message: 'Crime not found' });
+            return res.status(404).json({ code: 'E2001', message: 'Crime not found', trace_id: crime_id });
         }
 
         res.status(200).json(crime);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
 };
 
@@ -47,7 +47,7 @@ const reportCrime = async (req, res) => {
         const crime = await Crime.create(crimeData);
         res.status(201).json(crime);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
 };
 
@@ -57,12 +57,12 @@ const updateCrime = async (req, res) => {
         const { crime_id } = req.params;
         const crime = await Crime.findOneAndUpdate({crime_id: crime_id}, req.body, { new: true });
         if (!crime) {
-            return res.status(404).json({ message: 'Crime not found' });
+            return res.status(404).json({ code: 'E2001', message: 'Crime not found', trace_id: crime_id });
         }
 
         res.status(200).json(crime);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
 };
 
@@ -70,17 +70,17 @@ const updateCrime = async (req, res) => {
 const patchCrime = async (req, res) => {
     try {
         if (Object.keys(req.body).length === 0) {
-            return res.status(400).json({ message: 'No fields provided for update' });
+            return res.status(400).json({ code: 'E3001', message: 'No fields provided for update' });
         }
 
         const { crime_id } = req.params;
         const crime = await Crime.findOneAndUpdate({ crime_id: crime_id }, req.body, { new: true });
         if (!crime) {
-            return res.status(404).json({ message: 'Crime not found' });
+            return res.status(404).json({ code: 'E2001', message: 'Crime not found', trace_id: crime_id });
         }
         res.status(200).json(crime);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
 };
 
@@ -90,15 +90,16 @@ const deleteCrime = async (req, res) => {
         const { crime_id } = req.params;
         const crime = await Crime.findOneAndDelete({crime_id: crime_id});
         if (!crime) {
-            return res.status(404).json({message: 'Crime not found'});
+            return res.status(404).json({ code: 'E2001', message: 'Crime not found', trace_id: crime_id });
         }
 
         res.status(200).json({message: 'Crime Successffuly Deleted'});
     } catch (error) {
-        res.status(500).json({message: error.message});
+        res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
 };
 
+// Filter crime statistics
 const formatDate = (date, timeFrame) => {
     const d = new Date(date);
     if (timeFrame === 'weekly') {
@@ -128,7 +129,7 @@ const formatDate = (date, timeFrame) => {
       const result = Object.values(crimeTrends);
       res.status(200).json(result);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ code: 'E5001', message: 'Internal server error', trace_id: error.message });
     }
   };
 

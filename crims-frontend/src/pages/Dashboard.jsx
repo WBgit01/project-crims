@@ -26,10 +26,15 @@ export default function Dashboard() {
             Authorization: `Bearer ${token}`,
           },
         });
-        setCrimes(res.data);
-        setFilteredCrimes(res.data);
+        const crimesData = res.data;
+        setCrimes(crimesData);
 
-        const uniqueCategories = ['All', ...new Set(res.data.map(c => c.categories))];
+        // Ensure the crimes are sorted by reportedAt in descending order when fetched
+        const sortedCrimes = crimesData.sort((a, b) => new Date(b.reportedAt) - new Date(a.reportedAt));
+        setFilteredCrimes(sortedCrimes);
+
+        // Get unique categories
+        const uniqueCategories = ['All', ...new Set(crimesData.map(c => c.categories))];
         setCategories(uniqueCategories);
       } catch (err) {
         console.error(err);

@@ -20,7 +20,7 @@ import PublicStatistics from './pages/PublicStatistics';
 import DashboardRedirect from './components/DashboardRedirect';
 
 // Landing Page
-import LandingPage from './pages/LandingPage';  // Import the new LandingPage component
+import LandingPage from './pages/LandingPage';
 
 function App() {
   return (

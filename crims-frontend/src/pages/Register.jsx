@@ -10,9 +10,9 @@ export default function Register() {
     lastName: '',
     email: '',
     password: '',
-    role: 'community',
+    role: '',
     phoneNumber: '',
-    address: ''
+    station: ''
   });
 
   const handleChange = (e) => {
@@ -38,7 +38,7 @@ export default function Register() {
       <input name="email" type="email" placeholder="Email" onChange={handleChange} />
       <input name="password" type="password" placeholder="Password" onChange={handleChange} />
       <input name="phoneNumber" placeholder="Phone Number" onChange={handleChange} />
-      <input name="address" placeholder="Address" onChange={handleChange} />
+      <input name="station" placeholder="Station" onChange={handleChange} />
       <button type="submit">Register</button>
     </form>
   );

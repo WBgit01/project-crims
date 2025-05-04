@@ -10,6 +10,7 @@ const crimeRoute = require('./routers/crime_router.js');
 const humanResourceRoute = require('./routers/human_resource_router.js');
 const transportResourceRoute = require('./routers/transport_resource_router.js');
 const userRoute = require('./routers/user_router.js');
+const authRoute = require('./routers/auth_router.js');
 
 // Connect to the database
 const { connectDB } = require('./config/db.js');
@@ -20,10 +21,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
 // Routes
-app.use('/crime', crimeRoute);
-app.use('/resources/people', humanResourceRoute);
-app.use('/resources/transport', transportResourceRoute);
-app.use('/users', userRoute);
+app.use('/api/v1/crime', crimeRoute);
+app.use('/api/v1/resources/people', humanResourceRoute);
+app.use('/api/v1/resources/transport', transportResourceRoute);
+app.use('/api/v1/users', userRoute);
+app.use('/api/v1/auth', authRoute);
 
 const PORT = process.env.PORT || 8080;
 app.get('/', (req,res) => {

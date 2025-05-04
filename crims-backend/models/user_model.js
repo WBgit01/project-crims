@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema(
             unique: true,
         },
 
-        address: {
+        station: {
             type: String,
             required: true,
         },

@@ -15,7 +15,7 @@ const ManageUsers = () => {
     lastName: "",
     email: "",
     phoneNumber: "",
-    address: "",
+    station: "",
     role: "policeman",
     status: "Active",
     password: "",
@@ -23,7 +23,7 @@ const ManageUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/users");
+      const res = await axios.get("http://localhost:8080/api/v1/users");
       setUsers(res.data);
     } catch (err) {
       console.error("Failed to fetch users", err);
@@ -42,7 +42,7 @@ const ManageUsers = () => {
         lastName: user.lastName || "",
         email: user.email || "",
         phoneNumber: user.phoneNumber || "",
-        address: user.address || "",
+        station: user.station || "",
         role: user.role || "policeman",
         status: user.status || "Active",
         password: "",
@@ -53,7 +53,7 @@ const ManageUsers = () => {
         lastName: "",
         email: "",
         phoneNumber: "",
-        address: "",
+        station: "",
         role: "policeman",
         status: "Active",
         password: "",
@@ -63,13 +63,13 @@ const ManageUsers = () => {
   };
 
   const handleSave = async () => {
-    const { firstName, lastName, email, phoneNumber, address } = formData;
-    if (firstName && lastName && email && phoneNumber && address) {
+    const { firstName, lastName, email, phoneNumber, station } = formData;
+    if (firstName && lastName && email && phoneNumber && station) {
       try {
         if (editingUser) {
-          await axios.put(`http://localhost:8080/users/${editingUser._id}`, formData);
+          await axios.put(`http://localhost:8080/api/v1/users/${editingUser._id}`, formData);
         } else {
-          await axios.post("http://localhost:8080/users/register", formData);
+          await axios.post("http://localhost:8080/api/v1/users/register", formData);
         }
         setShowDialog(false);
         fetchUsers();
@@ -84,7 +84,7 @@ const ManageUsers = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await axios.delete(`http://localhost:8080/users/${id}`);
+        await axios.delete(`http://localhost:8080/api/v1/users/${id}`);
         fetchUsers();
       } catch (err) {
         console.error("Failed to delete user", err);
@@ -198,9 +198,9 @@ const ManageUsers = () => {
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                 />
                 <input
-                  placeholder="Address"
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  placeholder="Station"
+                  value={formData.station}
+                  onChange={(e) => setFormData({ ...formData, station: e.target.value })}
                 />
                 {!editingUser && (
                   <input

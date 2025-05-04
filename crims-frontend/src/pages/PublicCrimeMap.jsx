@@ -44,7 +44,7 @@ export default function PublicCrimeMap() {
       {error && <p className="error-message">{error}</p>}
 
       <div className="map-wrapper">
-        <MapContainer center={centerPosition} zoom={11} className="crime-map">
+        <MapContainer center={centerPosition} zoom={15} className="crime-map">
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
