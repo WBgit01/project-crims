@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; // ✅ Import navigation
+import { useEffect, useState } from 'react';
+import axios from '../api/axios';
+import { useNavigate } from 'react-router-dom';
+import styles from '../styles/AdminDashboard.css';
+import logo from '../assets/crims_logo.png';
+
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -94,48 +97,116 @@ const ManageUsers = () => {
     }
   };
 
-  return (
-    <div>
-      <h1>Manage Users</h1>
-      <div>
-        <button onClick={() => openDialog()}>Add New User</button>
-        <button onClick={() => navigate("/admin-dashboard")}>Go to Dashboard</button>
-      </div>
+  const handleSendNotification = async () => {
+    const message = prompt('Enter message to send to all users:');
+    if (!message) return;
 
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user.firstName} {user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.phoneNumber}</td>
-                <td>{user.role}</td>
-                <td>{user.status || "Active"}</td>
-                <td>
-                  <button onClick={() => openDialog(user)}>Edit</button>
-                  <button onClick={() => handleDelete(user._id)}>Delete</button>
-                </td>
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.post('/admin/notify', { message }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert('Notification sent successfully!');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to send notification.');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
+    // <div className={styles.container}>
+    //   <h2 className={styles.heading}>Admin Dashboard</h2>
+
+    //   <div className={styles.buttonGroup}>
+    //     <button onClick={() => navigate('/statistics')} className={styles.button}>
+    //       View Statistics
+    //     </button>
+    //     <button onClick={toggleSearchVisibility} className={styles.button}>
+    //       Search Report
+    //     </button>
+    //     <button onClick={() => navigate('/crime-map')} className={styles.button}>
+    //       Crime Map
+    //     </button>
+    //     <button onClick={() => navigate('/admin/manage-users')} className={styles.button}>
+    //       Manage Users
+    //     </button>
+    //     <button onClick={handleSendNotification} className={styles.button}>
+    //       Notify Users
+    //     </button>
+    //   </div>
+ return (
+    <div className={styles.wrapper}>
+      {/* Top Navigation Bar */}
+      <header className={styles.topNav}>
+        <div className={styles.logo}>
+          <img src={logo} className={styles.logoImage} />
+          <span>CRIMS</span>
+        </div>
+        <nav className={styles.navLinks}>
+          <a href="#">Home</a>
+          <a href="#">Help</a>
+          <a href="#">FAQ</a>
+        </nav>
+      </header>
+
+      <div className={styles.contentWrapper}>
+        {/* Sidebar */}
+        <aside className={styles.sidebar}>
+          <button className={`${styles.sideButton} ${styles.active}`} onClick={() => navigate('/dashboard')}>📊 Dashboard</button>
+          <button className={styles.sideButton} onClick={() => navigate('/crime-map')}>🗺️ Crime Map</button>
+          <button className={styles.sideButton} onClick={() => navigate('/statistics')}>📈 Statistics</button>
+          <button className={styles.sideButton} onClick={() => navigate('/browsecrime')}>🔍 Browse Report</button>
+          <button className={styles.sideButton} onClick={() => navigate('/admin/manage-users')}>⚙️ Manage Users</button>
+          <button className={styles.sideButton} onClick={handleSendNotification}>📢 Brodcast Message</button>
+          <button className={styles.logoutButton} onClick={handleLogout}>⭕ Logout</button>
+        </aside>
+
+        {/* Main Panel */}
+        <main className={styles.mainContent}>
+          <div className={styles.titleBar}>📊 ADMIN DASHBOARD</div>
+          <button className={styles.submitBtn} onClick={() => openDialog()}>Add New User</button>
+          <div className={styles.subTitleBar}>Latest Crime Report</div>
+
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.firstName} {user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phoneNumber}</td>
+                  <td>{user.role}</td>
+                  <td>{user.status || "Active"}</td>
+                  <td>
+                    <button onClick={() => openDialog(user)}>Edit</button>
+                    <button onClick={() => handleDelete(user._id)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
-        </table>
-      </div>
+          </table>
 
-      {/* User Dialog */}
+                    {/* User Dialog */}
       {showDialog && (
         <div>
-          <h2>{editingUser ? "Edit User" : "Add User"}</h2>
+                    <div className={styles.subEditBar}>{editingUser ? "Edit User" : "Add User"}</div>
+
+          {/* <h2>{editingUser ? "Edit User" : "Add User"}</h2> */}
           <div>
             <input
               placeholder="First Name"
@@ -188,8 +259,11 @@ const ManageUsers = () => {
           </div>
         </div>
       )}
+
+        </main>
+      </div>
     </div>
   );
-};
+}
 
 export default ManageUsers;
