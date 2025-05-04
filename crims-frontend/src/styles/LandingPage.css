@@ -1,0 +1,75 @@
+#landing-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  color: white;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+#background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 74, 173, 0.3);
+  z-index: 1;
+}
+
+.landing-logo {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  display: block;
+}
+
+
+h1 {
+  font-size: 2.6rem;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  max-width: 600px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 30px;
+}
+
+.btn-group button {
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #004aad;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-group button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

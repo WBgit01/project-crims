@@ -57,7 +57,7 @@ export default function PublicCrimeMap() {
                 key={idx}
                 position={[
                   crime.map_location.coordinates[1], // Lat
-                  crime.map_location.coordinates[0], // Long
+                  crime.map_location.coordinates[0], // Lng
                 ]}
               >
                 <Popup className="popup-style">

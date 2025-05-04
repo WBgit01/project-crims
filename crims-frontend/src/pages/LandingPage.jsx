@@ -1,39 +1,41 @@
 import { useNavigate } from 'react-router-dom';
+import backgroundVideo from '../assets/landing_bg.mp4';
+import styles from'../styles/LandingPage.css';
+import logo from '../assets/crims_logo.png';
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   const handleGetStartedClick = () => {
-    // Redirect to the community dashboard
     navigate('/community');
   };
 
   const handleLoginClick = () => {
-    // Redirect to the login page
     navigate('/login');
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h1>Welcome to the Crime Reporting App</h1>
-      <p>
-        Join us in making your community safer by reporting incidents and staying informed.
-      </p>
-      
-      <div>
-        <button 
-          onClick={handleGetStartedClick} 
-          style={{ padding: '10px 20px', fontSize: '16px', margin: '10px', cursor: 'pointer' }}
-        >
-          Get Started
-        </button>
-        <button 
-          onClick={handleLoginClick} 
-          style={{ padding: '10px 20px', fontSize: '16px', margin: '10px', cursor: 'pointer' }}
-        >
-          Login
-        </button>
+    <>
+      <video autoPlay loop muted id="background-video">
+         <source src={backgroundVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+
+      <div className="overlay"></div>
+
+      <div id="landing-container">
+        <div className="logo-container">
+         <img src={logo} alt="App Logo" className="landing-logo" />
+        </div>
+
+        <h1>CRIME REPORTING INFORMATION MANAGMENT SYSTEM</h1>
+        <p>Stay aware. Stay informed. Help create a safer community for everyone.</p>
+        <div className="btn-group">
+          <button onClick={handleGetStartedClick}>Get Started</button>
+          <button onClick={handleLoginClick}>Login</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

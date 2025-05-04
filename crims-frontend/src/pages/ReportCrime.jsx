@@ -81,11 +81,6 @@ export default function ReportCrime() {
           <img src={logo} className={styles.logoImage} />
           <span>CRIMS</span>
         </div>
-        <nav className={styles.navLinks}>
-          <a href="#">Home</a>
-          <a href="#">Help</a>
-          <a href="#">FAQ</a>
-        </nav>
       </header>
 
       <div className={styles.contentWrapper}>

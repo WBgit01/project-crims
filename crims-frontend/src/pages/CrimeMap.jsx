@@ -54,11 +54,6 @@ export default function CrimeMap() {
           <img src={logo} className={styles.logoImage} />
           <span>CRIMS</span>
         </div>
-        <nav className={styles.navLinks}>
-          <a href="#">Home</a>
-          <a href="#">Help</a>
-          <a href="#">FAQ</a>
-        </nav>
       </header>
 
       <div className={styles.contentWrapper}>
@@ -74,7 +69,6 @@ export default function CrimeMap() {
         {/* Main Panel */}
         <main className={styles.mainContent}>
           <div className={styles.titleBar}>🗺️ CRIME MAP</div>
-          {/* <div className={styles.subTitleBar}>Latest Crime Report</div> */}
 
           <table className={styles.table}>
             {loading && <p>Loading crimes...</p>}

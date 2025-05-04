@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/PublicHotlines.css'; // Import the external CSS file
+import '../styles/PublicHotlines.css';
 
 export default function PublicHotlines() {
   return (

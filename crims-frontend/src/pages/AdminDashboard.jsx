@@ -97,26 +97,6 @@ export default function AdminDashboard() {
     navigate('/');
   };
 
-    // <div className={styles.container}>
-    //   <h2 className={styles.heading}>Admin Dashboard</h2>
-
-    //   <div className={styles.buttonGroup}>
-    //     <button onClick={() => navigate('/statistics')} className={styles.button}>
-    //       View Statistics
-    //     </button>
-    //     <button onClick={toggleSearchVisibility} className={styles.button}>
-    //       Search Report
-    //     </button>
-    //     <button onClick={() => navigate('/crime-map')} className={styles.button}>
-    //       Crime Map
-    //     </button>
-    //     <button onClick={() => navigate('/admin/manage-users')} className={styles.button}>
-    //       Manage Users
-    //     </button>
-    //     <button onClick={handleSendNotification} className={styles.button}>
-    //       Notify Users
-    //     </button>
-    //   </div>
  return (
     <div className={styles.wrapper}>
       {/* Top Navigation Bar */}
@@ -125,11 +105,6 @@ export default function AdminDashboard() {
           <img src={logo} className={styles.logoImage} />
           <span>CRIMS</span>
         </div>
-        <nav className={styles.navLinks}>
-          <a href="#">Home</a>
-          <a href="#">Help</a>
-          <a href="#">FAQ</a>
-        </nav>
       </header>
 
       <div className={styles.contentWrapper}>

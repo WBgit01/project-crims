@@ -132,7 +132,7 @@
 }
 
 .logoImage {
-  width: 40px; /* Adjust this to desired size */
+  width: 40px;
   height: auto;
 }
 
@@ -152,7 +152,6 @@
   font-weight: 500;
 }
 
-
 input {
   width: 20%;
   padding: 12px;
@@ -168,7 +167,6 @@ input input:focus {
   outline: none;
 }
 
-
 select {
   width: 20%;
   padding: 12px;
@@ -178,7 +176,6 @@ select {
   font-size: 14px;
   transition: border 0.3s;
 }
-
 
 .submitBtn {
   width: 15%;
@@ -199,7 +196,6 @@ select {
   color: #fff;
 }
 
-
 .submitBtn2 {
   width: 15%;
   padding: 12px;
@@ -218,7 +214,6 @@ select {
   border: 2px solid #004aad;
   color: #004aad;
 }
-
 
 .actEditBtn {
   width: 60px;

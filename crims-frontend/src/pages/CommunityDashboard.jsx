@@ -14,7 +14,7 @@ export default function CommunityDashboard() {
         <div className="navbar-left">
           <div className="logo">
             <img src={logo} alt="Logo" />
-            <h3>CRIMS API</h3>
+            <h3>CRIMS</h3>
           </div>
           <ul className="nav-links">
             <li><button onClick={() => setView('home')}>Home</button></li>
@@ -23,7 +23,6 @@ export default function CommunityDashboard() {
             <li><button onClick={() => setView('statistics')}>Statistics</button></li>
           </ul>
         </div>
-        {/* <button className="login-button">Login</button> */}
       </nav>
 
       <div className="hero-flex">
@@ -33,9 +32,6 @@ export default function CommunityDashboard() {
             Information <br />
             Management System
           </h1>
-          {/* <button className="get-started-btn">
-            Get Started
-          </button> */}
         </div>
         <img src={logo} alt="Crime Shield" className="hero-image" />
       </div>
