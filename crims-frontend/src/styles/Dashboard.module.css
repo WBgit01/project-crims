@@ -89,6 +89,14 @@
   font-weight: 600;
 }
 
+.subEditBar {
+  background-color: #0046ad;
+  color: white;
+  padding: 8px;
+  margin: 30px 0 10px;
+  font-weight: 600;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -160,6 +168,18 @@ input input:focus {
   outline: none;
 }
 
+
+select {
+  width: 20%;
+  padding: 12px;
+  margin: 10px 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+
 .submitBtn {
   width: 15%;
   padding: 12px;
@@ -177,4 +197,50 @@ input input:focus {
 .submitBtn:hover {
   background-color: #004aad;
   color: #fff;
+}
+
+
+.submitBtn2 {
+  width: 15%;
+  padding: 12px;
+  margin: 15px 10px;
+  background-color: #004aad;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.submitBtn2:hover {
+  background-color: #fff;
+  border: 2px solid #004aad;
+  color: #004aad;
+}
+
+
+.actEditBtn {
+  width: 60px;
+  padding: 5px;
+  background-color: #fff;
+  border: 2px solid #004aad;
+  border-radius: 6px;
+  color: #004aad;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.actDelBtn {
+  width: 60px;
+  padding: 5px;
+  margin-left: 10px;
+  background-color: #ff0000;
+  border: 2px solid #ff0000;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
 }
