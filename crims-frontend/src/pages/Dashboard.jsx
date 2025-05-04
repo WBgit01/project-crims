@@ -91,6 +91,7 @@ export default function Dashboard() {
         {/* Sidebar */}
         <aside className={styles.sidebar}>
           <button className={`${styles.sideButton} ${styles.active}`} onClick={() => navigate('/dashboard')}>📊 Dashboard</button>
+          <button className={styles.sideButton}  onClick={toggleSearchVisibility}>🔍 Search Crime Report</button>
           <button className={styles.sideButton} onClick={() => navigate('/crime-map')}>🗺️ Crime Map</button>
           <button className={styles.sideButton} onClick={() => navigate('/report-crime')}>📄 Report Crime</button>
           <button className={styles.sideButton} onClick={() => navigate('/statistics')}>📈 Statistics</button>
@@ -100,6 +101,37 @@ export default function Dashboard() {
         {/* Main Panel */}
         <main className={styles.mainContent}>
           <div className={styles.titleBar}>📊 DASHBOARD</div>
+          {searchVisible && (
+            <div className={styles.filterContainer}>
+              <input
+                type="text"
+                placeholder="Search crimes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={styles.input}
+              />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className={styles.input}
+              >
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat}>{cat}</option>
+                ))}
+              </select>
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className={styles.input}
+              >
+                <option value="latest">Latest</option>
+                <option value="oldest">Oldest</option>
+              </select>
+              <button onClick={handleSearchAndFilter} className={styles.submitBtn}>
+                Apply Filters
+              </button>
+            </div>
+          )}
           <div className={styles.subTitleBar}>Latest Crime Report</div>
 
           <table className={styles.table}>

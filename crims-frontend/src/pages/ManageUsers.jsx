@@ -131,7 +131,6 @@ const ManageUsers = () => {
           <button className={styles.sideButton} onClick={() => navigate('/dashboard')}>📊 Dashboard</button>
           <button className={styles.sideButton} onClick={() => navigate('/crime-map')}>🗺️ Crime Map</button>
           <button className={styles.sideButton} onClick={() => navigate('/statistics')}>📈 Statistics</button>
-          <button className={styles.sideButton} onClick={() => navigate('/browsecrime')}>🔍 Browse Report</button>
           <button className={`${styles.sideButton} ${styles.active}`} onClick={() => navigate('/admin/manage-users')}>⚙️ Manage Users</button>
           <button className={styles.sideButton} onClick={handleSendNotification}>📢 Brodcast Message</button>
           <button className={styles.logoutButton} onClick={handleLogout}>⭕ Logout</button>

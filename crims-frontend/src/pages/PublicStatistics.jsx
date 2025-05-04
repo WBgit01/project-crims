@@ -105,7 +105,7 @@ export default function PublicStatistics() {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <button onClick={handleDateChange}>Apply Date Filter</button>
+        <button className="statBtn" onClick={handleDateChange}>Apply Date Filter</button>
       </div>
 
       {loading && <p className="loading-message">Loading statistics...</p>}

@@ -69,6 +69,25 @@
   margin-bottom: 1rem;
 }
 
+.statBtn {
+  width: 20%;
+  padding: 12px;
+  margin: 15px 10px;
+  background-color: #fff;
+  border: 2px solid #004aad;
+  border-radius: 6px;
+  color: #004aad;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.statBtn:hover {
+  background-color: #004aad;
+  color: #fff;
+}
+
 .no-data-msg {
   text-align: center;
   background-color: #fff3cd;
